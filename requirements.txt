@@ -1,14 +1,10 @@
 channels==4.1.0
 daphne==4.1.2
-django-admin-json-editor==0.2.3
 django-ckeditor==6.7.1
-django-htmx==1.17.3
-django-json-widget==2.0.1
 django-jsoneditor==0.2.4
-langchain==0.1.17
-langchain-google-genai==1.0.3
 markdown==3.6
 pillow==10.3.0
 python-dotenv==1.0.1
 service-identity==24.1.0
 zope.interface==6.3
+google-generativeai==0.5.2

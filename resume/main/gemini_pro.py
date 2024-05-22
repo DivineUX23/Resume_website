@@ -5,7 +5,6 @@ from .models import Conversation
 from dotenv import load_dotenv
 import json
 from django.core.exceptions import ValidationError
-import jsonpickle
 import markdown
 
 load_dotenv()
