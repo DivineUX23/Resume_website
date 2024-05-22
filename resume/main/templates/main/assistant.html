@@ -1,0 +1,64 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Divine's Ai{% endblock %}
+{% block description %}{% endblock %}
+{% block keywords %}{% endblock %}
+
+ 
+<!-- ================================
+Start CSS
+================================= -->
+{% block extend_header %}{% endblock %}
+
+<!-- ================================
+End CSS
+================================= -->
+{% block extend_footer %}{% endblock %}
+
+ 
+ <!-- ================================
+  Start Content
+  ================================= -->
+
+{% block content %}
+
+    <main id="chat-page">
+        <section style="background-color: #ffffff; flex: 1; display: flex; flex-direction: column;">
+          <div style="background-color: #ffffff; border: none; overflow-y: auto;" class="container py-5  chat-container">
+            <div class="row d-flex justify-content-center">
+                  
+                    <div id='chat_container' class="overflow-y-auto grow">
+                      <ul id='chat_messages' class="flex flex-col justify-end gap-2 p-4">
+                          
+                        <div id="user_message"></div>
+    
+                      </ul>
+                </div>
+            </div>
+          </div>
+          <div class="chat-form">
+            <div class="container form-outline">
+              <form id="chat_message_form" class="d-flex w-100">
+                {% csrf_token %}
+                {{ form.body }}
+                <button type="submit">
+                  <svg id="i-send" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+                    <path d="M2 16 L30 2 16 30 12 20 Z M30 2 L12 20" />
+                  </svg>
+                </button>
+              </form>
+              <footer class="chat_footer">
+                Divine's Assistant can me mistake. Read Divine's Resume to Confirm Important Info.
+              </footer>
+            </div>
+          </div>
+    
+        </section>
+      </main>    
+{% endblock %}
+
+
+
+{% block footer %}
+{% endblock %}
