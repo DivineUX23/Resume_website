@@ -3,13 +3,14 @@ import google.generativeai as genai
 import os
 from .models import Conversation
 from dotenv import load_dotenv
+from decouple import config
 import json
 from django.core.exceptions import ValidationError
 import markdown
 
-load_dotenv()
-
-gemini_api_key = os.getenv("GEMINI_API_KEY")
+#load_dotenv()
+#gemini_api_key = os.getenv("GEMINI_API_KEY")
+gemini_api_key = config("GEMINI_API_KEY")
 genai.configure(api_key=gemini_api_key)
 
 def read_content(path: str) -> str:

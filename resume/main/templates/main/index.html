@@ -29,7 +29,11 @@ End CSS
       <div class="row g-4 g-md-3  align-items-center">
         <div class="col-md-auto order-md-last">
           <div class="bannerUserImg">
-            <img src="{{me.userprofile.avatar.url}}" alt="...">
+            {% if me.userprofile.avatar %}
+              <img src="{{ me.userprofile.avatar.url }}" alt="User Avatar">
+            {% else %}
+              <img src="" alt="Default Avatar">
+            {% endif %}
           </div>
         </div>
         <div class="col-md">
