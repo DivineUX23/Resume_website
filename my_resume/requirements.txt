@@ -8,6 +8,8 @@ python-dotenv==1.0.1
 python-decouple==3.8
 service-identity==24.1.0
 zope.interface==6.3
+dj-database-url==2.1.0
+Markdown==3.6
 
 google-ai-generativelanguage==0.6.2
 google-api-core==2.19.0
