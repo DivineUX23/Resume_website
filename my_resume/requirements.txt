@@ -11,6 +11,7 @@ zope.interface==6.3
 dj-database-url==2.1.0
 Markdown==3.6
 psycopg2-binary==2.9.9
+whitenoise==6.6.0
 
 
 django-ckeditor==6.7.1
