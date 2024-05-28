@@ -11,6 +11,11 @@ zope.interface==6.3
 dj-database-url==2.1.0
 Markdown==3.6
 
+
+django-ckeditor==6.7.1
+django-htmx==1.17.3
+django-jsoneditor==0.2.4
+
 google-ai-generativelanguage==0.6.2
 google-api-core==2.19.0
 google-api-python-client==2.127.0
