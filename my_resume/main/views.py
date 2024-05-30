@@ -56,6 +56,9 @@ def assistant(request):
 	form = ChatForm
 	#context = {"message": messages}
 	#return render(request,'main/partials/assistant_message.html', context)
+	#------------------------------------------
+	#open the db here and save to a file
+	#------------------------------------------
 	messages.success(request, 'Please note that your conversionation with the AI in this session will be saved for imporving User Experience.')
 	return render(request,'main/assistant.html', {'form':form})
 

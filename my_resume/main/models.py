@@ -182,3 +182,15 @@ class Conversation(models.Model):
 
     def __str__(self) -> str:
         return f'Assistant Session at {self.date.strftime("%Y-%m-%d %H:%M:%S")}'
+
+
+
+class Resume_info(models.Model):
+
+    class Meta:
+        verbose_name = 'Resume_info'
+    body = RichTextField(blank=True, null=True)
+    is_active = models.BooleanField(True)
+
+    def __str__(self) -> str:
+        return self.body

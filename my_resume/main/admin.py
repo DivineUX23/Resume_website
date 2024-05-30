@@ -3,6 +3,7 @@ from django.db import models
 #from django_json_widget.widgets import JSONEditorWidget
 #from jsoneditor.forms import JSONEditor
 from jsoneditor.forms import JSONEditor
+from django.utils.html import format_html
 
 
 # Register your models here.
@@ -14,7 +15,8 @@ from . models import (Skill,
     Portfolio,
     Blog,
     Certificate,
-    Conversation)
+    Conversation,
+    Resume_info)
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
@@ -61,3 +63,14 @@ class ConversationAdmin(admin.ModelAdmin):
         if db_field.name == 'chat_history':
             kwargs['widget'] = JSONEditor
         return super().formfield_for_dbfield(db_field, **kwargs)
+
+
+@admin.register(Resume_info)
+class Resume_infoAdmin(admin.ModelAdmin):
+    list_display  = ('body', 'is_active')
+
+    def body_preview(self, obj):
+        # Sanitize and truncate the rich text content for display
+        return format_html('<div>{}</div>', obj.body[:100] + '...')
+
+    body_preview.short_description = 'body'
