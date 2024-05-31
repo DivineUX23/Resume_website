@@ -787,7 +787,7 @@ input[type=text], input[type=email], select, textarea {
       flex-direction: column;
       overflow-y: auto;
       overflow: hidden;
-      padding-top: 90px;
+      padding-top: 35px;
     }
     .chat-form {
       position: fixed;
@@ -820,8 +820,9 @@ input[type=text], input[type=email], select, textarea {
     }
     .chat_footer {
       align-items: center;
+      text-align: center;
       position: fixed;
-      font-size: smaller;
+      font-size: x-small;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       bottom: 0;
       background-color: #f8f9fa;
