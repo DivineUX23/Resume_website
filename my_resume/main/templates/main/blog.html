@@ -1,57 +1,154 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Divine's Blog Posts{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}Divine's Blog - Latest Posts{% endblock %}
+{% block description %}Explore Divine's latest blog posts on various topics.{% endblock %}
+{% block keywords %}blog, Divine, posts, articles{% endblock %}
 
+{% block extend_header %}
+<link rel="stylesheet" href="{% static 'css/blog-list.css' %}">
+<style>
+  :root {
+    --primary-color: #002C54;
+    --primary-dark: #c82333;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+  }
+  
+  .blog-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+  }
+  
+  .blog-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .blog-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .blog-content {
+    padding: 3rem 0;
+    background-color: var(--light-bg);
+  }
+  
+  .blog-card {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .blog-card-link {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  
+  .blog-card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .blog-card-content {
+    padding: 1.5rem;
+  }
+  
+  .blog-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+  }
+  
+  .blog-card-excerpt {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+  
+  .blog-card-date {
+    color: #888;
+  }
+  
+  .blog-card-readmore {
+    color: var(--primary-color);
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .blog-title {
+      font-size: 2rem;
+    }
+    
+    .blog-subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>
 
-{% block extend_header %}{% endblock %}
-
-{% block extend_footer %}{% endblock %}
+{% endblock %}
 
 {% block content %}
-    <!-- ================================
-    Start Content
-    ================================= -->
-    <section>
-      <div class="innerPageBannerCol">
-        <div class="container">
-          <div class="row g-4 g-md-3  align-items-center">
-            <div class="col-md-6">
-              <div class="bannerContent">
-                <h1 class="xlTitle pb-md-3">See Divine's recent blog posts below</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<header class="blog-header">
+  
+  <br>
+  <br><br><br>
+  <div class="container">
+    <h1 class="xlTitle pb-md-3">Divine's Blog</h1>
+    <p class="blog-subtitle">Explore my latest thoughts and insights</p>
+  </div>
+</header>
 
-    <section>
-      <div class="lightBg">
-        <div class="container">
-          <div class="portfolioContentMain">
-            <div class="row g-3 g-md-4 g-lg-5 portfolioRow">
-              
-              {% for obj in object_list %}
-              {% if obj.is_active %}
-              <div class="col-md-6 pColMain">
-                <div class="pCol">
-                  <a href="{% url 'main:blog' slug=obj.slug %}" >
-                    <img src="{{obj.image.url}}" alt="..." class="pImg">
-                  </a>
+<main class="blog-content">
+  <div class="container">
+    <div class="row">
+      {% for obj in object_list %}
+        {% if obj.is_active %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <article class="blog-card">
+              <a href="{% url 'main:blog' slug=obj.slug %}" class="blog-card-link">
+                <div class="blog-card-image">
+                  <img src="{{ obj.image.url }}" alt="{{ obj.name }}" class="img-fluid">
                 </div>
-              </div>
-              {% endif %}
-              {% endfor %}
-            </div>
+                <div class="blog-card-content">
+                  <h2 class="blog-card-title">{{ obj.name|truncatechars:60 }}</h2>
+                  <p class="blog-card-excerpt">{{ obj.body|striptags|truncatewords:20 }}</p>
+                  <div class="blog-card-meta">
+                    <span class="blog-card-date">{{ obj.timestamp|date:"F j, Y" }}</span>
+                    <span class="blog-card-readmore">Read More</span>
+                  </div>
+                </div>
+              </a>
+            </article>
           </div>
+        {% endif %}
+      {% empty %}
+        <div class="col-12">
+          <p class="text-center">No blog posts available at the moment. Check back soon!</p>
         </div>
-      </div>
-    </section>
-    <!-- ================================
-    End Content
-    ================================= -->
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %}
 
+{% block extend_footer %}
+<script src="{% static 'js/blog-list.js' %}"></script>
 {% endblock %}

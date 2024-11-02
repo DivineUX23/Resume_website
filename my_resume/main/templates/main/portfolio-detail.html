@@ -1,45 +1,94 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Divine's Portfolio{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}{{ object.name|title }} - Divine's Portfolio{% endblock %}
+{% block description %}{{ object.body|striptags|truncatewords:30 }}{% endblock %}
+{% block keywords %}portfolio, {{ object.name|lower }}, divine{% endblock %}
 
-
-{% block extend_header %}{% endblock %}
-
-{% block extend_footer %}{% endblock %}
+{% block extend_header %}
+<link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+<style>
+  .portfolio-header {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+  }
+  
+  .portfolio-title {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .portfolio-content {
+    padding: 2rem 0;
+  }
+  
+  .portfolio-image {
+    margin-bottom: 2rem;
+  }
+  
+  .portfolio-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+  }
+  
+  .portfolio-footer {
+    background-color: #f8f9fa;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+  }
+  
+  .portfolio-date {
+    color: #6c757d;
+    font-style: italic;
+  }
+  </style>
+{% endblock %}
 
 {% block content %}
+<!-- Portfolio Header -->
+<header class="portfolio-header">
+  
+  <br>
+  <br><br><br>
+  <div class="container">
+    <h1 class="xlTitle pb-md-3">{{ object.name|title }}</h1>
+  </div>
+</header>
 
-<!-- ================================
-Start Content
-================================= -->
-<section>
-  <div class="innerPageBannerCol">
-    <div class="container">
-      <div class="row g-4 g-md-3  align-items-center">
-        <div class="col-md-6">
-          <div class="bannerContent">
-            <h1 class="xlTitle pb-md-3">{{ object.name|title }}</h1>
-          </div>
+<!-- Portfolio Content -->
+<main class="portfolio-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <figure class="portfolio-image">
+          <img src="{{ object.image.url }}" alt="{{ object.name }}" class="img-fluid rounded shadow">
+        </figure>
+        <div class="portfolio-description">
+          {{ object.body|safe }}
         </div>
       </div>
     </div>
   </div>
-</section>
+</main>
 
-<section>
-  <div class="sectionSpaceSm">
-    <div class="container">
-      <img src="{{object.image.url}}" alt="..." class="pImg">
-      <hr>
-      <p>{{ object.body|safe }}</p>
+<!-- Portfolio Footer -->
+<footer class="portfolio-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p class="portfolio-date">Last updated: {{ object.updated_at|date:"F j, Y" }}</p>
+      </div>
+      <div class="col-md-6 text-md-end">
+        <a href="{% url 'main:portfolios' %}" class="btn btn-outline-primary">Back to Portfolio</a>
+      </div>
     </div>
   </div>
-</section>
-<!-- ================================
-End Content
-================================= -->
+</footer>
+{% endblock %}
 
+{% block extend_footer %}
+<script src="{% static 'js/portfolio.js' %}"></script>
 {% endblock %}

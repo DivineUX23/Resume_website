@@ -1,0 +1,38 @@
+/* home.css */
+.hero {
+    padding: 100px 0;
+    background-color: #f8f9fa;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+  
+  .hero-bio {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .hero-cta .btn {
+    margin-right: 15px;
+  }
+  
+  .hero-image img {
+    max-width: 100%;
+    border-radius: 50%;
+  }
+  
+  .section-title {
+    margin-bottom: 30px;
+  }
+  
+  .skills, .certificates, .featured-work, .testimonials, .recent-posts {
+    padding: 80px 0;
+  }
+  
+  .skill-item, .certificate-card, .work-item, .testimonial-card, .blog-card {
+    margin-bottom: 30px;
+  }
+  
+  /* Add more specific styles as needed */

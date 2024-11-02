@@ -1,56 +1,150 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Divine's Portfolios{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}Divine's Portfolio - Recent Projects{% endblock %}
+{% block description %}Explore Divine's recent projects and professional work.{% endblock %}
+{% block keywords %}portfolio, projects, Divine, professional work{% endblock %}
 
-
-{% block extend_header %}{% endblock %}
-
-{% block extend_footer %}{% endblock %}
+{% block extend_header %}
+<link rel="stylesheet" href="{% static 'css/portfolio-list.css' %}">
+<style>
+  :root {
+    --primary-color: #002C54;
+    --primary-dark: #b00404;
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .portfolio-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+  }
+  
+  .portfolio-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .portfolio-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .portfolio-content {
+    padding: 3rem 0;
+    background-color: var(--light-bg);
+  }
+  
+  .portfolio-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+  }
+  
+  .portfolio-card-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .portfolio-card:hover .portfolio-card-image img {
+    transform: scale(1.05);
+  }
+  
+  .portfolio-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 44, 84, 0.1);
+    color: white;
+    padding: 1rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+  }
+  
+  .portfolio-card:hover .portfolio-card-overlay {
+    transform: translateY(0);
+  }
+  
+  .portfolio-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .portfolio-card-category {
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  .portfolio-card-link {
+    text-decoration: none;
+    color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .portfolio-title {
+      font-size: 2rem;
+    }
+    
+    .portfolio-subtitle {
+      font-size: 1rem;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
+<header class="portfolio-header">
+  
+  <br>
+  <br>
+  <br><br>
+  <br>
+  <div class="container">
+    <h1 class="xlTitle pb-md-3">Divine's Portfolio</h1>
+    <p class="portfolio-subtitle">Explore my recent projects and professional work</p>
+  </div>
+</header>
 
-  <!-- ================================
-  Start Content
-  ================================= -->
-  <section>
-    <div class="innerPageBannerCol">
-      <div class="container">
-        <div class="row g-4 g-md-3  align-items-center">
-          <div class="col-md-6">
-            <div class="bannerContent">
-              <h1 class="xlTitle pb-md-3">See Divine's recent projects below</h1>
-            </div>
+<main class="portfolio-content">
+  <div class="container">
+    <div class="row g-4">
+      {% for obj in object_list %}
+        {% if obj.is_active %}
+          <div class="col-md-6 col-lg-4">
+            <article class="portfolio-card">
+              <a href="{% url 'main:portfolio' slug=obj.slug %}" class="portfolio-card-link">
+                <div class="portfolio-card-image">
+                  <img src="{{ obj.image.url }}" alt="{{ obj.name }}" class="img-fluid">
+                </div>
+                <div class="portfolio-card-overlay">
+                  <h2 class="portfolio-card-title">{{ obj.name }}</h2>
+                  <p class="portfolio-card-category">{{ obj.category }}</p>
+                </div>
+              </a>
+            </article>
           </div>
+        {% endif %}
+      {% empty %}
+        <div class="col-12">
+          <p class="text-center">No portfolio items available at the moment. Check back soon!</p>
         </div>
-      </div>
+      {% endfor %}
     </div>
-  </section>
+  </div>
+</main>
+{% endblock %}
 
-  <section>
-    <div class="lightBg">
-      <div class="container">
-        <div class="portfolioContentMain">
-          <div class="row g-3 g-md-4 g-lg-5 portfolioRow">
-            {% for obj in object_list %}
-            {% if obj.is_active %}
-            <div class="col-md-6 pColMain">
-              <div class="pCol">
-                <a href="{% url 'main:portfolio' slug=obj.slug %}">
-                  <img src="{{obj.image.url}}" alt="..." class="pImg">
-                </a>
-              </div>
-            </div>
-            {% endif %}
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- ================================
-  End Content
-  ================================= -->
+{% block extend_footer %}
+<script src="{% static 'js/portfolio-list.js' %}"></script>
 {% endblock %}

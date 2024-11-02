@@ -124,7 +124,7 @@ End CSS
           <h4 class="smText regular">Certificates</h4>
         </div>
         <div class="col-auto">
-          <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
+          <a href="{% url 'main:portfolios' %}" class="simpleLink">View all</a>
         </div>
       </div>
       <div class="sliderOuter">
@@ -138,13 +138,18 @@ End CSS
                     <a href="javascript:void(0)">{{c.name}}</a>
                   </h4>
                   <ul class="cardOptionCol">
-                    <li>{{c.date}}</li>
-                    <li>{{c.title}}</li>
+                    <br>
                     <div class="bannerUserImg">
                       <img src="{{c.image.url}}" alt="...">
                     </div>
+                    <br>
+                    <br>
+
+                    <li>{{c.title}}</li>
+                    <br>
+                    <li>{{c.date}}</li>
+
                   </ul>
-                  <p>{{c.description}}</p>
                 </div>
               </div>
             {% endif %}

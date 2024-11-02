@@ -1,54 +1,108 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %}Divine's blog post{% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}{{ object.name|title }} - Divine's Blog{% endblock %}
 
+{% block extend_header %}
+<style>
+.blog-post {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
 
-{% block extend_header %}{% endblock %}
+.blog-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
 
-{% block extend_footer %}{% endblock %}
+.blog-title {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.blog-meta {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.blog-meta span {
+  margin-right: 1rem;
+}
+
+.blog-content {
+  line-height: 1.6;
+  color: #333;
+}
+
+.blog-footer {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blog-tags .tag {
+  display: inline-block;
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+.blog-share .share-icon {
+  font-size: 1.2rem;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.fas, .fab {
+  margin-right: 0.3rem;
+}
+
+</style>
+{% endblock %}
 
 {% block content %}
-
-
-  <!-- ================================
-  Start Content
-  ================================= -->
-  <section>
-    <div class="innerPageBannerCol">
-      <div class="container">
-        <div class="row g-4 g-md-3  align-items-center">
-          <div class="col-md-6">
-            <div class="bannerContent">
-              <h1 class="xlTitle pb-md-3">{{object.name|title}}</h1>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-auto">
-            <div class="authorCol">
-              <h4 class="smTitle pb-3">{{object.author|title}}</h4>
-            </div>
-          </div>
-          <div class="col-md">
-            <h4 class="smTitle pb-3">{{object.timestamp.date}}</h4>
-          </div>
-        </div>
+<article class="blog-post">
+  <br>
+  <br><br><br>
+  <div class="container">
+    <header class="blog-header">
+      <h1 class="xlTitle pb-md-3">{{ object.name|title }}</h1>
+      <div class="blog-meta">
+        <span class="blog-author">
+          <i class="fas fa-user"></i> {{ object.author|title }}
+        </span>
+        <span class="blog-date">
+          <i class="fas fa-calendar-alt"></i> {{ object.timestamp|date:"F j, Y" }}
+        </span>
       </div>
-    </div>
-  </section>
+    </header>
 
-  <section>
-    <div class="sectionSpaceSm">
-      <div class="container">
-        <p>{{object.body|safe}}</p>
+    <div class="blog-content">
+      {{ object.body|safe }}
+    </div>
+
+    <footer class="blog-footer">
+      <div class="blog-tags">
+        {% for tag in object.tags.all %}
+          <span class="tag">{{ tag.name }}</span>
+        {% endfor %}
       </div>
-    </div>
-  </section>
-  <!-- ================================
-  End Content
-  ================================= -->
-
+      <div class="blog-share">
+        <span>Share:</span>
+        <a href="#" class="share-icon"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="share-icon"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="share-icon"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </footer>
+  </div>
+</article>
 {% endblock %}
