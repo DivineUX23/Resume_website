@@ -163,7 +163,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function startTypingEffect() {
   
-  const texts = ["I think you know me", "I'm a {{ me.userprofile.title }}", "I'm {{ me.first_name|title }}."];
+  //const texts = ["I think you know me", "I'm a {{ me.userprofile.title }}", "I'm {{ me.first_name|title }}."];
+  const texts = ["Need a solid backend or API?", "I build solutions that scale", "I'm {{ me.first_name|title }} - Your backend guy."];
+
   const typingElement = document.querySelector('.typing');
 
   const typewriter = new Typewriter(typingElement, {
