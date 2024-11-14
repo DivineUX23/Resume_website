@@ -39,7 +39,7 @@ class IndexView(generic.TemplateView):
 		portfolio = Portfolio.objects.filter(is_active=True)
 		profile = UserProfile.objects.first()
 
-		context["work_experience"] = experiences
+		context["work_experiences"] = experiences
 		context["about"] = about
 		context["tools"] = tools
 		context["testimonials"] = testimonials
