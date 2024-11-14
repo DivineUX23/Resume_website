@@ -15,18 +15,32 @@ from datetime import datetime
 from . forms import ContactForm, ChatForm
 
 
+# views.py
+from django.shortcuts import render
+from .models import Tool, WorkExperience, AboutMe
+
 class IndexView(generic.TemplateView):
 	template_name = "main/index.html"
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		
+# views.py
+		experiences = WorkExperience.objects.all()
+		for experience in experiences:
+			if experience.key_achievements:
+				experience.key_achievements = experience.key_achievements.split('\n')
+
+
+		about = AboutMe.objects.first()
+		tools = Tool.objects.all()
 		testimonials = Testimonial.objects.filter(is_active=True)
 		certificates = Certificate.objects.filter(is_active=True)
 		blogs = Blog.objects.filter(is_active=True)
 		portfolio = Portfolio.objects.filter(is_active=True)
 		profile = UserProfile.objects.first()
 
+		context["about"] = about
+		context["tools"] = tools
 		context["testimonials"] = testimonials
 		context["certificates"] = certificates
 		context["blogs"] = blogs

@@ -88,7 +88,7 @@ ASGI_APPLICATION = 'resume.asgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+# https://docs.djangoproject.com/en/5.0/ref/settings/#databases dj_database_url
 
 DATABASES = {
     'default': {

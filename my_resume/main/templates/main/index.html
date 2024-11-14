@@ -22,7 +22,6 @@ End CSS
   ================================= -->
 
 {% block content %}
-
 <section>
   <div class="bannerSection">
     <div class="container">
@@ -44,48 +43,243 @@ End CSS
             </h1>
             
             <p>{{me.userprofile.bio}}</p>
+            
+            <p>Here is what you get...</p>
+
+            <!-- Expand/Collapse Button -->
+            <div class="flex justify-center mt-6">
+              <button class="expand-button p-2 rounded-full btn btnPrimary hover:btn btnPrimary text-white transition duration-200 bounce-animation"
+                      aria-expanded="false">
+                <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+            
+            <!-- Expandable Content -->
+            <div class="expandable-content ">
+              
+              <div class="prose max-w-none">
+                {{ about.detailed_bio|safe }}
+              </div>
+            <!-- Action Buttons -->
+            
             <div class="bannerBtnCol">
               <div class="row">
                 <div class="col-auto">
                   <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary">Download Resume</a>
                 </div>
                 <div class="col-auto">
-                  <a href="{% url 'main:contact' %}" class="btn btnOutline">Contact</a>
+                  <a href="{% url 'main:assistant' %}" class="btn btnOutline">Chat with Divine's AI</a>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
 </section>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const expandButton = document.querySelector('.expand-button');
+  const expandableContent = document.querySelector('.expandable-content');
+  const arrow = expandButton.querySelector('svg');
+
+  expandButton.addEventListener('click', function() {
+    const isExpanded = expandButton.getAttribute('aria-expanded') === 'true';
+
+    // Toggle aria-expanded
+    expandButton.setAttribute('aria-expanded', !isExpanded);
+
+    // Toggle content visibility with animation
+    if (isExpanded) {
+      // Collapse
+      expandableContent.style.height = expandableContent.scrollHeight + 'px';
+      setTimeout(() => {
+        expandableContent.style.height = '0px';
+      }, 10);
+      
+      setTimeout(() => {
+        expandableContent.classList.add('hidden');
+        expandableContent.style.height = '';
+      }, 200);
+    } else {
+      // Expand
+      expandableContent.classList.remove('hidden');
+      expandableContent.style.height = '0px';
+      setTimeout(() => {
+        expandableContent.style.height = expandableContent.scrollHeight + 'px';
+      }, 10);
+      
+      setTimeout(() => {
+        expandableContent.style.height = '';
+      }, 200);
+    }
+
+    // Rotate arrow
+    arrow.style.transform = isExpanded ? '' : 'rotate(180deg)';
+  });
+});
+</script>
+
+<style>
+.bannerUserImg img {
+    transition: transform 0.3s;
+}
+.bannerUserImg:hover img {
+    transform: scale(1.1);
+}
+.expandable-content {
+    transition: height 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+
+
+.expand-button {
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
+
+</style>
+
+
+
+
+
+
+
+
+<!-- templates/work_experience.html -->
+
+<section class="bg-gray-50 py-16">
+  <div class="max-w-4xl mx-auto px-4">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center" style="font-family: 'Merriweather', serif;">Work Experience</h2>
+      
+      <div class="relative">
+          <!-- Timeline line centered -->
+          <div class="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gray-300"></div>
+
+          <!-- Experience Items -->
+          {% for experience in work_experiences %}
+          <div class="relative mb-12">
+              <div class="flex flex-col items-center">
+                  <!-- Timeline dot -->
+                  <div class="absolute left-1/2 transform -translate-x-px">
+                      <div class="w-4 h-4 rounded-full bg-red-700 border-4 border-white"></div>
+                  </div>
+
+                  <!-- Content centered -->
+                  <div class="w-full md:w-3/4 mt-6">
+                      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow" style="font-family: 'Open Sans', sans-serif;">
+                          <!-- Company Logo and Title -->
+                          <div class="flex items-center justify-center mb-4">
+                              {% if experience.company.logo %}
+                              <img src="{{ experience.company.logo.url }}" alt="{{ experience.company.name }}" 
+                                   class="w-12 h-12 object-contain rounded-lg bg-gray-50 p-2">
+                              {% else %}
+                              <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
+                                  <span class="text-xl font-bold text-gray-500">{{ experience.company.name|make_list|first }}</span>
+                              </div>
+                              {% endif %}
+                              <div class="ml-4">
+                                  <h3 class="text-xl font-semibold text-gray-800" style="font-family: 'Merriweather', serif;">{{ experience.title }}</h3>
+                                  <a href="{{ experience.company.website }}" target="_blank" 
+                                     class="text-red-700 hover:text-red-800">{{ experience.company.name }}</a>
+                              </div>
+                          </div>
+
+                          <!-- Duration and Location -->
+                          <div class="flex items-center text-sm text-gray-600 mb-4 justify-center">
+                              <span class="mr-2">
+                                  {{ experience.start_date|date:"M Y" }} - 
+                                  {% if experience.is_current %}Present{% else %}{{ experience.end_date|date:"M Y" }}{% endif %}
+                              </span>
+                              •
+                              <span class="mx-2">{{ experience.duration }}</span>
+                              {% if experience.company.location %}
+                              •
+                              <span class="ml-2">{{ experience.company.location }}</span>
+                              {% endif %}
+                          </div>
+
+                          <!-- Employment Type -->
+                          <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
+                              {{ experience.get_employment_type_display }}
+                          </span>
+
+                          <!-- Description -->
+                          <div class="text-gray-700 mb-4 prose">
+                              {{ experience.description|linebreaks }}
+                          </div>
+
+                          {% if experience.key_achievements %}
+                          <!-- Key Achievements -->
+                          <div class="mb-4">
+                              <h4 class="text-sm font-semibold text-gray-700 mb-2" style="font-family: 'Merriweather', serif;">Key Achievements:</h4>
+                              <ul class="list-disc list-inside text-gray-700 space-y-1">
+                                  {% for achievement in experience.key_achievements %}
+                                  <li>{{ achievement }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </div>
+                          {% endif %}
+
+                          {% if experience.technologies_used.exists %}
+                          <!-- Technologies Used -->
+                          <div class="flex flex-wrap gap-2">
+                              {% for tech in experience.technologies_used.all %}
+                              <span class="px-2 py-1 bg-gray-200 text-gray-700 rounded-md text-xs">
+                                  {{ tech.name }}
+                              </span>
+                              {% endfor %}
+                          </div>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+</section>
+
+
+
 <section>
   <div class="sectionSpace pt-0">
     <div class="container">
       <div class="row">
-        <!--<div class="col-md-auto">
-          <div class="keySkillCol">
-            <h4 class="smTitle pb-3">Key Skills</h4>
-            
-            {% for sk in me.userprofile.skills.all %}
-            {% if sk.is_key_skill %}
-            <div class="keySkillCard">
-              {% if sk.image %}
-              <div class="ksIconCol">
-                <img src="{{sk.image.url}}" alt="...">
-              </div>
-              {% endif %}
-              <span class="ksText">{{sk.name}}</span>
-            </div>
-            {% endif %}
-            {% endfor %}
+        
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Technical Expertise</h2>
 
-          </div>
-        </div>-->
-        <div class="col-md">
-          <h4 class="smTitle pb-3">Coding Skills</h4>
+    <!--<div class="space-y-4">
+        {% for skill in me.userprofile.skills.all|dictsort:"order" %}
+        <div class="mb-6 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="text-lg font-semibold text-gray-800">{{ skill.name }}</h3>
+                <span class="px-3 py-1 {{ skill.level_color_classes }} rounded-full text-sm font-medium">
+                    {{ skill.level }}
+                </span>
+            </div>
+            <p class="text-gray-600 text-sm">{{ skill.description }}</p>
+        </div>
+        {% endfor %}
+    </div>-->
+
           <div class="progressCol">
             <div class="progressCard">
               
@@ -110,11 +304,78 @@ End CSS
               </div>
             </div>
           </div>
-        </div>
+
+</div>
+
+
       </div>
     </div>
   </div>
 </section>
+
+
+
+
+
+<!-- templates/tools_section.html -->
+
+<section class="bg-gray-50 py-12">
+  <div class="max-w-6xl mx-auto px-4">
+      <h2 class="text-xl font-bold text-gray-800 mb-6">Tech Stack & Tools</h2>
+
+      <!-- Carousel Container -->
+      <div class="tools-carousel relative overflow-hidden">
+          <!-- Track that will scroll -->
+          <div class="tools-track flex animate-scroll">
+              {% for tool in tools %}
+              <!-- Tool Card -->
+              <div class="tool-card flex-none w-48 mx-4 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
+                  {% if tool.icon %}
+                      <img src="{{ tool.icon.url }}" alt="{{ tool.name }}" class="h-12 w-12 object-contain mb-3">
+                  {% else %}
+                      <div class="h-12 w-12 bg-gray-100 rounded-full mb-3 flex items-center justify-center">
+                          <span class="text-2xl">{{ tool.name|make_list|first }}</span>
+                      </div>
+                  {% endif %}
+                  <h3 class="text-sm font-semibold text-gray-800">{{ tool.name }}</h3>
+                  <span class="text-xs text-gray-500">{{ tool.get_category_display }}</span>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- Tailwind and CSS Styling for Scrolling Animation -->
+<style>
+  /* Scroll Animation */
+  @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+  }
+
+  /* Carousel track styling */
+  .tools-carousel {
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+  }
+
+  /* Infinite scroll on the tools-track */
+  .tools-track {
+      display: flex;
+      animation: scroll 7s linear infinite;
+  }
+
+  /* Duplicate items to ensure smooth scrolling */
+  .tools-track > div {
+      flex: none;
+  }
+</style>
+
+
+
+
 
 <section>
   <div class="sectionSpaceSm lightBg">
@@ -272,6 +533,6 @@ End CSS
   </div>
 </section>
 {% endblock %}
-  <!-- ================================
+<!-- ================================
   End Content
   ================================= -->

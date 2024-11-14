@@ -7,19 +7,186 @@ import uuid
 
 # Create your models here.
 
+# models.py
+from django.db import models
+
+class AboutMe(models.Model):
+    headline = models.CharField(max_length=200)
+    short_bio = models.TextField(help_text="Brief introduction that's always visible")
+    detailed_bio = RichTextField(help_text="Detailed information shown when expanded")
+    profile_image = models.ImageField(upload_to='profile/', blank=True, null=True)
+    resume_file = models.FileField(upload_to='documents/', blank=True, null=True)
+    github_url = models.URLField(blank=True)
+    linkedin_url = models.URLField(blank=True)
+    twitter_url = models.URLField(blank=True)
+    email = models.EmailField(blank=True)
+
+    class Meta:
+        verbose_name_plural = "About Me"
+
+    def __str__(self):
+        return self.headline
+
+
+
+# models.py
+from django.db import models
+from django.utils import timezone
+from dateutil.relativedelta import relativedelta
+
+class Company(models.Model):
+    name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='companies/', blank=True, null=True)
+    website = models.URLField(blank=True)
+    location = models.CharField(max_length=100, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Companies'
+
+    def __str__(self):
+        return self.name
+
+class WorkExperience(models.Model):
+    EMPLOYMENT_TYPE_CHOICES = [
+        ('full_time', 'Full-time'),
+        ('part_time', 'Part-time'),
+        ('contract', 'Contract'),
+        ('freelance', 'Freelance'),
+        ('internship', 'Internship'),
+    ]
+
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    employment_type = models.CharField(max_length=20, choices=EMPLOYMENT_TYPE_CHOICES)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+    is_current = models.BooleanField(default=False)
+    description = models.TextField()
+    technologies_used = models.ManyToManyField('Tool', blank=True)
+    key_achievements = models.TextField(blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['-start_date', '-order']
+
+    def __str__(self):
+        return f"{self.title} at {self.company.name}"
+
+    def save(self, *args, **kwargs):
+        if self.is_current:
+            self.end_date = None
+        super().save(*args, **kwargs)
+
+    @property
+    def duration(self):
+        end = self.end_date or timezone.now().date()
+        delta = relativedelta(end, self.start_date)
+        years = delta.years
+        months = delta.months
+
+        if years and months:
+            return f"{years} {'year' if years == 1 else 'years'}, {months} {'month' if months == 1 else 'months'}"
+        elif years:
+            return f"{years} {'year' if years == 1 else 'years'}"
+        elif months:
+            return f"{months} {'month' if months == 1 else 'months'}"
+        else:
+            return "Less than a month"
+
+# models.py
+# models.py (alternative version with custom colors)
+from django.db import models
+from django.contrib.auth.models import User
+
 class Skill(models.Model):
+    LEVEL_CHOICES = [
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Advanced', 'Advanced'),
+        ('Expert', 'Expert'),
+    ]
+
+    COLOR_SCHEMES = [
+        ('pink', 'Pink - Beginner'),
+        ('blue', 'Blue - Intermediate'),
+        ('purple', 'Purple - Advanced'),
+        ('green', 'Green - Expert'),
+    ]
+
     class Meta:
         verbose_name = 'Skill'
         verbose_name_plural = 'Skills'
 
-    name = models.CharField(max_length=20, blank=True, null=True)
+    name = models.CharField(max_length=50)
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES, default='Intermediate')
+    description = models.TextField()
+    order = models.IntegerField(default=0)
+
     score = models.IntegerField(default=80, blank=True, null=True)
     image = models.ImageField(upload_to='skills/', blank=True, null=True)
     is_key_skill = models.BooleanField(default=False)
 
+
+    color_scheme = models.CharField(
+        max_length=20, 
+        choices=COLOR_SCHEMES, 
+        default='blue'
+    )
+
+    @property
+    def level_color_classes(self):
+        color_mapping = {
+            'pink': 'bg-pink-100 text-pink-800 border border-pink-200',
+            'blue': 'bg-blue-100 text-blue-800 border border-blue-200',
+            'purple': 'bg-purple-100 text-purple-800 border border-purple-200',
+            'green': 'bg-green-100 text-green-800 border border-green-200',
+        }
+        return color_mapping.get(self.color_scheme, 'bg-gray-100 text-gray-800')
+
+    def save(self, *args, **kwargs):
+        # Automatically set color scheme based on level if not manually set
+        if not self.color_scheme:
+            level_color_mapping = {
+                'Beginner': 'pink',
+                'Intermediate': 'blue',
+                'Advanced': 'purple',
+                'Expert': 'green',
+            }
+            self.color_scheme = level_color_mapping.get(self.level, 'blue')
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
-    
+
+
+
+
+
+# models.py
+
+class Tool(models.Model):
+    CATEGORY_CHOICES = [
+        ('backend', 'Backend'),
+        ('database', 'Database'),
+        ('devops', 'DevOps'),
+        ('testing', 'Testing'),
+        ('monitoring', 'Monitoring'),
+        ('ai', 'AI'),
+        ('other', 'Other')
+    ]
+
+    name = models.CharField(max_length=50)
+    icon = models.ImageField(upload_to='tools/', blank=True, null=True)
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    description = models.TextField(blank=True)
+    website_url = models.URLField(blank=True)
+    order = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['category', 'order']
+
+    def __str__(self):
+        return self.name
 
 class UserProfile(models.Model):
 
