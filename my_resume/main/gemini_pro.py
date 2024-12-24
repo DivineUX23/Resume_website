@@ -82,7 +82,7 @@ class Assistant():
 
         # Print history and response for debugging purposes
         #print(conversation_json)
-        #print(response.text)
+        print(response.text)
         
 
         return markdown.markdown(response.text) if response.text else "Error processing response, try again later"

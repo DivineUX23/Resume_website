@@ -48,15 +48,6 @@ End CSS
             
             <p>{{me.userprofile.bio}}</p>
             
-            <!-- Expand/Collapse Button -->
-            <div class="flex mt-6">
-              <button class="expand-button p-2 rounded-full btn btnPrimary hover:btn btnPrimary text-white transition duration-200 bounce-animation"
-                      aria-expanded="false" aria-controls="expandable-content">
-                <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-            </div>
             
             <!-- Expandable Content -->
             <div class="expandable-content collapsed" id="expandable-content">
@@ -66,6 +57,18 @@ End CSS
               <!-- Action Buttons -->
             </div>
             
+
+            <!-- Expand/Collapse Button -->
+            <div class="flex mt-6">
+              <button class="expand-button p-2 rounded-full btn btnPrimary hover:btn btnPrimary text-white transition duration-200 bounce-animation"
+                      aria-expanded="false" aria-controls="expandable-content">
+                <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+
+
             <div class="bannerBtnCol mt-4">
               <div class="row">
                 <div class="col-auto">
@@ -97,7 +100,7 @@ End CSS
 .expandable-content {
     transition: max-height 0.5s ease, opacity 0.5s ease;
     overflow: hidden;
-    max-height: 90px; /* Adjust based on desired preview height */
+    max-height: 100px; /* Adjust based on desired preview height */
     position: relative;
     opacity: 1;
 }
@@ -453,6 +456,13 @@ outline-offset: 2px;
   .tools-track > div {
       flex: none;
   }
+
+  .flex {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center;     /* Centers items vertically (optional) */
+}
+
 </style>
 
 
