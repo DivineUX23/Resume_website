@@ -22,10 +22,14 @@ End CSS
   ================================= -->
 
 {% block content %}
+
+
+
+
 <section>
   <div class="bannerSection">
     <div class="container">
-      <div class="row g-4 g-md-3  align-items-center">
+      <div class="row g-4 g-md-3 align-items-center">
         <div class="col-md-auto order-md-last">
           <div class="bannerUserImg">
             {% if me.userprofile.avatar %}
@@ -44,12 +48,10 @@ End CSS
             
             <p>{{me.userprofile.bio}}</p>
             
-            <p>Here is what you get...</p>
-
             <!-- Expand/Collapse Button -->
             <div class="flex mt-6">
               <button class="expand-button p-2 rounded-full btn btnPrimary hover:btn btnPrimary text-white transition duration-200 bounce-animation"
-                      aria-expanded="false">
+                      aria-expanded="false" aria-controls="expandable-content">
                 <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -57,14 +59,14 @@ End CSS
             </div>
             
             <!-- Expandable Content -->
-            <div class="expandable-content ">
-              
+            <div class="expandable-content collapsed" id="expandable-content">
               <div class="prose max-w-none">
                 {{ about.detailed_bio|safe }}
               </div>
-            <!-- Action Buttons -->
-           </div>
-            <div class="bannerBtnCol">
+              <!-- Action Buttons -->
+            </div>
+            
+            <div class="bannerBtnCol mt-4">
               <div class="row">
                 <div class="col-auto">
                   <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary">Download Resume</a>
@@ -75,70 +77,67 @@ End CSS
               </div>
             </div>
 
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const expandButton = document.querySelector('.expand-button');
-  const expandableContent = document.querySelector('.expandable-content');
-  const arrow = expandButton.querySelector('svg');
-
-  expandButton.addEventListener('click', function() {
-    const isExpanded = expandButton.getAttribute('aria-expanded') === 'true';
-
-    // Toggle aria-expanded
-    expandButton.setAttribute('aria-expanded', !isExpanded);
-
-    // Toggle content visibility with animation
-    if (isExpanded) {
-      // Collapse
-      expandableContent.style.height = expandableContent.scrollHeight + 'px';
-      setTimeout(() => {
-        expandableContent.style.height = '0px';
-      }, 10);
-      
-      setTimeout(() => {
-        expandableContent.classList.add('hidden');
-        expandableContent.style.height = '';
-      }, 200);
-    } else {
-      // Expand
-      expandableContent.classList.remove('hidden');
-      expandableContent.style.height = '0px';
-      setTimeout(() => {
-        expandableContent.style.height = expandableContent.scrollHeight + 'px';
-      }, 10);
-      
-      setTimeout(() => {
-        expandableContent.style.height = '';
-      }, 200);
-    }
-
-    // Rotate arrow
-    arrow.style.transform = isExpanded ? '' : 'rotate(180deg)';
-  });
-});
-</script>
-
 <style>
-.bannerUserImg img {
+
+
+  .bannerUserImg img {
     transition: transform 0.3s;
 }
 .bannerUserImg:hover img {
     transform: scale(1.1);
 }
+
 .expandable-content {
-    transition: height 0.2s ease-in-out;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
     overflow: hidden;
+    max-height: 90px; /* Adjust based on desired preview height */
+    position: relative;
+    opacity: 1;
 }
 
+.expandable-content::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px; /* Height of the fade effect */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
 
+.expandable-content.expanded::after {
+    display: none;
+}
 
+.expandable-content.expanded {
+    max-height: 10000px; /* A large enough value to accommodate the full content */
+}
+
+/* Adjusted expand-button styles */
 .expand-button {
   animation: bounce 1.5s infinite;
+  padding: 0.5rem;
+  border-radius: 9999px; /* For fully rounded button */
+  background-color: #002C54; /* Example primary color */
+  border: none; /* Remove border if your btnPrimary handles it */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.expand-button:hover {
+  background-color: #00184c; /* Darker shade on hover */
 }
 
 @keyframes bounce {
@@ -153,7 +152,90 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 }
 
+/* Ensure btnPrimary and btnOutline retain their original styles */
+.btnPrimary {
+  /* Your existing btnPrimary styles */
+}
+
+.btnOutline {
+  /* Your existing btnOutline styles */
+}
+
+/* Optional: Adjust button focus styles for accessibility */
+.expand-button:focus {
+  outline: 2px solid #002C54;
+  outline-offset: 2px;
+}
+
+/* Button Focus Styles for Accessibility */
+.expand-button:focus {
+outline: 2px solid #005fcc;
+outline-offset: 2px;
+}
+
+/* Preserve Inner Content Formatting */
+.prose {
+  /* Ensure that child elements like headings, lists, etc., are styled appropriately */
+  /* You can customize typography here or integrate a typography library like Tailwind CSS's prose plugin */
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Optional: Customize Prose Elements */
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.prose p {
+  margin-bottom: 1em;
+}
+
+.prose ul, .prose ol {
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+
+.prose a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #0056b3;
+}
+
+
+
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const expandButton = document.querySelector('.expand-button');
+    const expandableContent = document.querySelector('.expandable-content');
+    const arrow = expandButton.querySelector('svg');
+  
+    expandButton.addEventListener('click', function() {
+      const isExpanded = expandableContent.classList.contains('expanded');
+  
+      if (isExpanded) {
+        // Collapse the content
+        expandableContent.classList.remove('expanded');
+        expandButton.setAttribute('aria-expanded', 'false');
+        arrow.style.transform = 'rotate(0deg)';
+      } else {
+        // Expand the content
+        expandableContent.classList.add('expanded');
+        expandButton.setAttribute('aria-expanded', 'true');
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+  
+</script>
+
 
 
 

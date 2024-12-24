@@ -39,7 +39,7 @@ class Assistant():
 
         self.system_instruction = f"You're Divine's Assistant and your name is Jervis, You answer questions about Divine based on Following information: {content}"
 
-        self.model = genai.GenerativeModel(model_name="gemini-1.5-flash-latest",
+        self.model = genai.GenerativeModel(model_name="gemini-1.5-flash",
                                     generation_config=self.generation_config,
                                     system_instruction=self.system_instruction)
 
@@ -81,8 +81,8 @@ class Assistant():
         await sync_to_async(conversation.save)()
 
         # Print history and response for debugging purposes
-        print(conversation_json)
-        print(response.text)
+        #print(conversation_json)
+        #print(response.text)
         
 
         return markdown.markdown(response.text) if response.text else "Error processing response, try again later"

@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
               let typewriter = new Typewriter(span, {
                   loop: false,
-                  delay: 3
+                  delay: 0.5
               });
 
               typewriter.typeString(messageContent).start().callFunction(() => {
