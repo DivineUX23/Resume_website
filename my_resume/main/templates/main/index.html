@@ -48,7 +48,7 @@ End CSS
             
             <p>{{me.userprofile.bio}}</p>
             
-            
+            <br>
             <!-- Expandable Content -->
             <div class="expandable-content collapsed" id="expandable-content">
               <div class="prose max-w-none">
@@ -70,15 +70,16 @@ End CSS
 
 
             <div class="bannerBtnCol mt-4">
-              <div class="row">
-                <div class="col-auto">
-                  <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary">Download Resume</a>
+              <div class="row justify-content-center">
+                <div class="col-12 col-sm-auto mb-2 mb-sm-0">
+                  <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary w-100 w-sm-auto">Download Resume</a>
                 </div>
-                <div class="col-auto">
-                  <a href="{% url 'main:assistant' %}" class="btn btnOutline">Chat with Divine's AI</a>
+                <div class="col-12 col-sm-auto">
+                  <a href="{% url 'main:assistant' %}" class="btn btnOutline w-100 w-sm-auto">Chat with Divine's AI</a>
                 </div>
               </div>
             </div>
+            
 
           </div>
         </div>
@@ -100,7 +101,7 @@ End CSS
 .expandable-content {
     transition: max-height 0.5s ease, opacity 0.5s ease;
     overflow: hidden;
-    max-height: 100px; /* Adjust based on desired preview height */
+    max-height: 200px; /* Adjust based on desired preview height */
     position: relative;
     opacity: 1;
 }
@@ -137,6 +138,11 @@ End CSS
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
+}
+.flex {
+  display: flex;
+  justify-content: center; /* Centers items horizontally */
+  align-items: center;     /* Centers items vertically (optional) */
 }
 
 .expand-button:hover {
@@ -456,13 +462,6 @@ outline-offset: 2px;
   .tools-track > div {
       flex: none;
   }
-
-  .flex {
-    display: flex;
-    justify-content: center; /* Centers items horizontally */
-    align-items: center;     /* Centers items vertically (optional) */
-}
-
 </style>
 
 

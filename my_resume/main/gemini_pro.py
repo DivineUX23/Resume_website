@@ -81,7 +81,7 @@ class Assistant():
         await sync_to_async(conversation.save)()
 
         # Print history and response for debugging purposes
-        #print(conversation_json)
+        print(conversation_json)
         print(response.text)
         
 
