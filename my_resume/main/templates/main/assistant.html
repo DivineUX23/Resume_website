@@ -37,22 +37,24 @@ End CSS
                 </div>
             </div>
           </div>
+          
+          
           <div class="chat-form">
-            <div class="container form-outline">
-              <form id="chat_message_form" class="d-flex w-100">
-                {% csrf_token %}
-                {{ form.body }}
-                <button type="submit">
-                  <svg id="i-send" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
-                    <path d="M2 16 L30 2 16 30 12 20 Z M30 2 L12 20" />
-                  </svg>
-                </button>
-              </form>
-              <footer class="chat_footer">
-                Divine's Assistant can me mistake. Read Divine's Resume to Confirm Important Info.
-              </footer>
+            <div class="container">
+                <form id="chat_message_form" class="d-flex">
+                    {% csrf_token %}
+                    {{ form.body }}
+                    <button type="submit" aria-label="Send message">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                            <path d="M2 16 L30 2 16 30 12 20 Z M30 2 L12 20" />
+                        </svg>
+                    </button>
+                </form>
+                <footer class="chat_footer">
+                    Divine's Assistant isn't perfect. Check the Resume for critical information
+                </footer>
             </div>
-          </div>
+        </div>
     
         </section>
       </main>    

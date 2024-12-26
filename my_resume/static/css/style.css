@@ -781,6 +781,161 @@ input[type=text], input[type=email], select, textarea {
 /* For assistance.html*/
 
 
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow: hidden;
+  padding-top: 35px;
+}
+
+#chat-page {
+  height: 100vh;
+  background-color: #ffffff;
+}
+
+.chat-container {
+  height: calc(100vh - 140px);
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#chat_container {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #002855 #f1f1f1;
+}
+
+#chat_container::-webkit-scrollbar {
+  width: 6px;
+}
+
+#chat_container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#chat_container::-webkit-scrollbar-thumb {
+  background: #002855;
+  border-radius: 3px;
+}
+
+#chat_messages {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.chat-form {
+  background-color: #ffffff;
+  border-top: 1px solid #e9ecef;
+  padding: 1rem 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+#chat_message_form {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#chat_message_form textarea {
+  border: 1px solid #dee2e6;
+  border-radius: 24px;
+  padding: 12px 50px 12px 20px;
+  resize: none;
+  height: 48px;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: border-color 0.15s ease-in-out;
+}
+
+#chat_message_form textarea:focus {
+  outline: none;
+  border-color: #002855;
+  box-shadow: 0 0 0 0.2rem rgba(0, 40, 85, 0.25);
+}
+
+#chat_message_form button {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #002855;
+  padding: 8px;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out;
+}
+
+#chat_message_form button:hover {
+  color: #001f3f;
+}
+
+.chat_footer {
+  text-align: center;
+  color: #6c757d;
+  font-size: clamp(0.65rem, 2vw, 0.875rem);
+  margin-top: 0.5rem;
+  padding: clamp(0.25rem, 1vw, 0.5rem);
+  line-height: 1.2;
+}
+
+@media (max-width: 576px) {
+  .chat_footer {
+      font-size: 0.65rem;
+      padding: 0.25rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .chat_footer {
+      font-size: 0.875rem;
+      padding: 0.5rem;
+  }
+}
+
+/* Message bubbles styling can be added here */
+.message {
+  margin-bottom: 1rem;
+  max-width: 80%;
+}
+
+.message.user {
+  margin-left: auto;
+  background-color: #002855;
+  color: white;
+  border-radius: 18px 18px 0 18px;
+  padding: 12px 16px;
+}
+
+.message.assistant {
+  margin-right: auto;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 18px 18px 18px 0;
+  padding: 12px 16px;
+}
+
+
+@keyframes fadeInAndUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0px); }
+}
+.fade-in-up {
+  animation: fadeInAndUp 0.6s ease;
+}
+
+
+
+
+/* For assistance.html
     main {
       flex: 1;
       display: flex;
@@ -836,5 +991,4 @@ input[type=text], input[type=email], select, textarea {
     .fade-in-up {
         animation: fadeInAndUp 0.6s ease;
     }
-
-
+*/

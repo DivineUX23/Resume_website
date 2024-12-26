@@ -27,8 +27,224 @@
     <!-- ================================
     End CSS
     ================================= -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeo3lKWBj0K5CXvvF6fG7hbFf9Cejl8CS5gG83cmK1G9gO/a" crossorigin="anonymous"></script>
 
+
+
+      <!-- Your Custom CSS -->
+      <style>
+        /* Custom Link Colors */
+        a {
+            color: #002C54;
+        }
+        a:hover, a:focus {
+            color: #002C54;
+            text-decoration: underline; /* Optional: Adds underline on hover */
+        }
+        
+        a:not(.btn):not(.nav-link) {
+            /* Ensures buttons and navigation links retain their Bootstrap styles */
+            color: #002C54;
+        }      
+
+        .btnPrimary {
+          background-color: #002855;
+          color: !important;
+          padding: 0.75rem 1.5rem;
+          border: 2px solid #002855;
+          border-radius: 4px;
+          font-size: 1.25rem;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .btnPrimary:hover {
+          background-color: #003872;
+          color: white !important;
+          border-color: #003872;
+        }
+
+        .btnPrimary:focus,
+        .btnPrimary:active {
+          color: white !important;
+        }
+
+        .btnOutline {
+          background-color: transparent;
+          color: #002855;
+          padding: 0.75rem 1.5rem;
+          border: 2px solid #002855;
+          border-radius: 4px;
+          font-size: 1.25rem;
+          transition: all 0.3s ease;
+          text-decoration: none;
+        }
+
+        .btnOutline:hover {
+          background-color: #002855;
+          color: white;
+        }
+
+        .bannerBtnCol {
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .bannerUserImg img {
+          transition: transform 0.3s;
+        }
+        .bannerUserImg:hover img {
+          transform: scale(1.1);
+        }
+
+        .expandable-content {
+          transition: max-height 0.5s ease, opacity 0.5s ease;
+          overflow: hidden;
+          max-height: 270px; /* Adjust based on desired preview height */
+          position: relative;
+          opacity: 1;
+        }
+
+        .expandable-content::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          height: 100px; /* Height of the fade effect */
+          background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+          pointer-events: none;
+          transition: opacity 0.5s ease;
+        }
+
+        .expandable-content.expanded::after {
+          display: none;
+        }
+
+        .expandable-content.expanded {
+          max-height: 10000px; /* A large enough value to accommodate the full content */
+        }
+
+        /* Adjusted expand-button styles */
+        .expand-button {
+        animation: bounce 1.5s infinite;
+        padding: 0.5rem;
+        border-radius: 9999px; /* For fully rounded button */
+        background-color: #002C54; /* Example primary color */
+        border: none; /* Remove border if your btnPrimary handles it */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s ease;
+        }
+        .flex {
+        display: flex;
+        justify-content: center; /* Centers items horizontally */
+        align-items: center;     /* Centers items vertically (optional) */
+        }
+
+        .expand-button:hover {
+        background-color: #00184c; /* Darker shade on hover */
+        }
+
+        @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-5px);
+        }
+        60% {
+          transform: translateY(-3px);
+        }
+        }
+
+        /* Ensure btnPrimary and btnOutline retain their original styles */
+        .btnPrimary {
+        /* Your existing btnPrimary styles */
+        }
+
+        .btnOutline {
+        /* Your existing btnOutline styles */
+        }
+
+        /* Optional: Adjust button focus styles for accessibility */
+        .expand-button:focus {
+        outline: 2px solid #002C54;
+        outline-offset: 2px;
+        }
+
+        /* Button Focus Styles for Accessibility */
+        .expand-button:focus {
+        outline: 2px solid #005fcc;
+        outline-offset: 2px;
+        }
+
+        /* Preserve Inner Content Formatting */
+        .prose {
+        /* Ensure that child elements like headings, lists, etc., are styled appropriately */
+        /* You can customize typography here or integrate a typography library like Tailwind CSS's prose plugin */
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #333;
+        }
+
+        /* Optional: Customize Prose Elements */
+        .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+        margin-top: 1.5em;
+        margin-bottom: 0.5em;
+        font-weight: bold;
+        }
+
+        .prose p {
+        margin-bottom: 1em;
+        }
+
+        .prose ul, .prose ol {
+        margin-bottom: 1em;
+        padding-left: 1.5em;
+        }
+
+        .prose a {
+        color: #007bff;
+        text-decoration: underline;
+        }
+
+        .prose a:hover {
+        color: #0056b3;
+        }
+
+
+
+          /* Scroll Animation */
+          @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Carousel track styling */
+        .tools-carousel {
+            max-width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        /* Infinite scroll on the tools-track */
+        .tools-track {
+            display: flex;
+            animation: scroll 7s linear infinite;
+        }
+
+        /* Duplicate items to ensure smooth scrolling */
+        .tools-track > div {
+            flex: none;
+        }
+
+    </style>
+    
   </head>
   <body>
     {% include 'main/partials/messages.html' %}
@@ -46,6 +262,8 @@
     <!-- ================================
     Start Scripts
     ================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeo3lKWBj0K5CXvvF6fG7hbFf9Cejl8CS5gG83cmK1G9gO/a" crossorigin="anonymous"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 

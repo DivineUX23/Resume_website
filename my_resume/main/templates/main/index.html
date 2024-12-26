@@ -25,7 +25,6 @@ End CSS
 
 
 
-
 <section>
   <div class="bannerSection">
     <div class="container">
@@ -49,30 +48,28 @@ End CSS
             <p>{{me.userprofile.bio}}</p>
             
             <br>
-            <!-- Expandable Content -->
+
             <div class="expandable-content collapsed" id="expandable-content">
               <div class="prose max-w-none">
-                {{ about.detailed_bio|safe }}
+                <p style="margin-bottom: 1rem; line-height: 1.6;">{{ about.detailed_bio|safe }}</p>
               </div>
-              <!-- Action Buttons -->
             </div>
-            
-
             <!-- Expand/Collapse Button -->
+
             <div class="flex mt-6">
-              <button class="expand-button p-2 rounded-full btn btnPrimary hover:btn btnPrimary text-white transition duration-200 bounce-animation"
+              <button class="expand-button px-4 py-2 rounded-md bg-blue-500 hover:bg-blue-600 text-white font-semibold transition duration-200 shadow-md"
                       aria-expanded="false" aria-controls="expandable-content">
-                <svg class="w-6 h-6 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span class="mr-2 expand-text">Show More</span>
+                <!--<svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                </svg>
+                </svg>-->
               </button>
             </div>
-
-
+            
             <div class="bannerBtnCol mt-4">
               <div class="row justify-content-center">
                 <div class="col-12 col-sm-auto mb-2 mb-sm-0">
-                  <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary w-100 w-sm-auto">Download Resume</a>
+                  <a download href="{{me.userprofile.cv.url}}" class="btn btnPrimary text-white w-100 w-sm-auto">Download Resume</a>
                 </div>
                 <div class="col-12 col-sm-auto">
                   <a href="{% url 'main:assistant' %}" class="btn btnOutline w-100 w-sm-auto">Chat with Divine's AI</a>
@@ -88,317 +85,136 @@ End CSS
   </div>
 </section>
 
-<style>
-
-
-  .bannerUserImg img {
-    transition: transform 0.3s;
-}
-.bannerUserImg:hover img {
-    transform: scale(1.1);
-}
-
-.expandable-content {
-    transition: max-height 0.5s ease, opacity 0.5s ease;
-    overflow: hidden;
-    max-height: 200px; /* Adjust based on desired preview height */
-    position: relative;
-    opacity: 1;
-}
-
-.expandable-content::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px; /* Height of the fade effect */
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
-    pointer-events: none;
-    transition: opacity 0.5s ease;
-}
-
-.expandable-content.expanded::after {
-    display: none;
-}
-
-.expandable-content.expanded {
-    max-height: 10000px; /* A large enough value to accommodate the full content */
-}
-
-/* Adjusted expand-button styles */
-.expand-button {
-  animation: bounce 1.5s infinite;
-  padding: 0.5rem;
-  border-radius: 9999px; /* For fully rounded button */
-  background-color: #002C54; /* Example primary color */
-  border: none; /* Remove border if your btnPrimary handles it */
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-}
-.flex {
-  display: flex;
-  justify-content: center; /* Centers items horizontally */
-  align-items: center;     /* Centers items vertically (optional) */
-}
-
-.expand-button:hover {
-  background-color: #00184c; /* Darker shade on hover */
-}
-
-@keyframes bounce {
-  0%, 20%, 50%, 80%, 100% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-5px);
-  }
-  60% {
-    transform: translateY(-3px);
-  }
-}
-
-/* Ensure btnPrimary and btnOutline retain their original styles */
-.btnPrimary {
-  /* Your existing btnPrimary styles */
-}
-
-.btnOutline {
-  /* Your existing btnOutline styles */
-}
-
-/* Optional: Adjust button focus styles for accessibility */
-.expand-button:focus {
-  outline: 2px solid #002C54;
-  outline-offset: 2px;
-}
-
-/* Button Focus Styles for Accessibility */
-.expand-button:focus {
-outline: 2px solid #005fcc;
-outline-offset: 2px;
-}
-
-/* Preserve Inner Content Formatting */
-.prose {
-  /* Ensure that child elements like headings, lists, etc., are styled appropriately */
-  /* You can customize typography here or integrate a typography library like Tailwind CSS's prose plugin */
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #333;
-}
-
-/* Optional: Customize Prose Elements */
-.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  font-weight: bold;
-}
-
-.prose p {
-  margin-bottom: 1em;
-}
-
-.prose ul, .prose ol {
-  margin-bottom: 1em;
-  padding-left: 1.5em;
-}
-
-.prose a {
-  color: #007bff;
-  text-decoration: underline;
-}
-
-.prose a:hover {
-  color: #0056b3;
-}
-
-
-
-</style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const expandButton = document.querySelector('.expand-button');
-    const expandableContent = document.querySelector('.expandable-content');
-    const arrow = expandButton.querySelector('svg');
-  
-    expandButton.addEventListener('click', function() {
-      const isExpanded = expandableContent.classList.contains('expanded');
-  
-      if (isExpanded) {
-        // Collapse the content
-        expandableContent.classList.remove('expanded');
-        expandButton.setAttribute('aria-expanded', 'false');
-        arrow.style.transform = 'rotate(0deg)';
-      } else {
-        // Expand the content
-        expandableContent.classList.add('expanded');
-        expandButton.setAttribute('aria-expanded', 'true');
-        arrow.style.transform = 'rotate(180deg)';
-      }
-    });
-  });
-  
-</script>
-
-
-
-
-
-
-
 
 
 <!-- templates/work_experience.html -->
+<section class="bg-light py-5">
+  <div class="container" style="max-width: 960px;">
+    <!--<h2 class="display-4 fw-bold text-center text-dark mb-5">Work Experience</h2>-->
+    <h2 class="h4 fw-bold text-dark mb-5 text-center">Work Experience</h2>
 
-<section class="bg-gray-50 py-16">
-  <div class="max-w-4xl mx-auto px-4">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Work Experience</h2>
-      
-      <div class="relative">
-          <!-- Timeline line centered -->
-          <div class="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gray-300"></div>
+    
+    <div class="position-relative">
+      <!-- Timeline line centered -->
+      <div class="position-absolute top-0 start-50 translate-middle-x h-100 border-start border-secondary"></div>
 
-          <!-- Experience Items -->
-          {% for experience in work_experiences %}
-          <div class="relative mb-12">
-              <div class="flex flex-col items-center">
-                  <!-- Timeline dot -->
-                  <div class="absolute left-1/2 transform -translate-x-px">
-                      <div class="w-4 h-4 rounded-full bg-red-700 border-4 border-white"></div>
-                  </div>
-
-                  <!-- Content centered -->
-                  <div class="w-full md:w-3/4 mt-6">
-                      <div class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow" style="font-family: 'Open Sans', sans-serif;">
-                          <!-- Company Logo and Title -->
-                          <div class="flex items-center justify-center mb-4">
-                              {% if experience.company.logo %}
-                              <img src="{{ experience.company.logo.url }}" alt="{{ experience.company.name }}" 
-                                   class="w-12 h-12 object-contain rounded-lg bg-gray-50 p-2">
-                              {% else %}
-                              <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center">
-                                  <span class="text-xl font-bold text-gray-500">{{ experience.company.name|make_list|first }}</span>
-                              </div>
-                              {% endif %}
-                              <div class="ml-4">
-                                  <h3 class="text-xl font-semibold text-gray-800" style="font-family: 'Merriweather', serif;">{{ experience.title }}</h3>
-                                  <a href="{{ experience.company.website }}" target="_blank" 
-                                     class="text-red-700 hover:text-red-800">{{ experience.company.name }}</a>
-                              </div>
-                          </div>
-
-                          <!-- Duration and Location -->
-                          <div class="flex items-center text-sm text-gray-600 mb-4 justify-center">
-                              <span class="mr-2">
-                                  {{ experience.start_date|date:"M Y" }} - 
-                                  {% if experience.is_current %}Present{% else %}{{ experience.end_date|date:"M Y" }}{% endif %}
-                              </span>
-                              •
-                              <span class="mx-2">{{ experience.duration }}</span>
-                              {% if experience.company.location %}
-                              •
-                              <span class="ml-2">{{ experience.company.location }}</span>
-                              {% endif %}
-                          </div>
-
-                          <!-- Employment Type -->
-                          <span class="inline-block px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium mb-4">
-                              {{ experience.get_employment_type_display }}
-                          </span>
-
-                          <!-- Description -->
-                          <div class="text-gray-700 mb-4 prose">
-                              {{ experience.description|linebreaks }}
-                          </div>
-
-                          {% if experience.key_achievements %}
-                          <!-- Key Achievements -->
-                          <div class="mb-4">
-                              <h4 class="text-sm font-semibold text-gray-700 mb-2" style="font-family: 'Merriweather', serif;">Key Achievements:</h4>
-                              <ul class="list-disc list-inside text-gray-700 space-y-1">
-                                  {% for achievement in experience.key_achievements %}
-                                  <li>{{ achievement }}</li>
-                                  {% endfor %}
-                              </ul>
-                          </div>
-                          {% endif %}
-
-                          {% if experience.technologies_used.exists %}
-                          <!-- Technologies Used -->
-                          <div class="flex flex-wrap gap-2">
-                              {% for tech in experience.technologies_used.all %}
-                              <span class="px-2 py-1 bg-gray-200 text-gray-700 rounded-md text-xs">
-                                  {{ tech.name }}
-                              </span>
-                              {% endfor %}
-                          </div>
-                          {% endif %}
-                      </div>
-                  </div>
-              </div>
+      <!-- Experience Items -->
+      {% for experience in work_experiences %}
+      <div class="position-relative mb-5">
+        <div class="d-flex flex-column align-items-center">
+          <!-- Timeline dot -->
+          <div class="position-absolute top-0 start-50 translate-middle">
+            <div class="bg-danger rounded-circle border border-white" style="width: 16px; height: 16px;"></div>
           </div>
-          {% endfor %}
+
+          <!-- Content centered -->
+          <div class="w-100 mt-4">
+            <div class="bg-white rounded shadow p-4 hover-shadow transition-shadow" style="font-family: 'Open Sans', sans-serif;">
+              <!-- Company Logo and Title -->
+              <div class="d-flex justify-content-center align-items-center mb-3">
+                {% if experience.company.logo %}
+                <img src="{{ experience.company.logo.url }}" alt="{{ experience.company.name }}" class="img-fluid rounded bg-light p-2" style="width: 48px; height: 48px;">
+                {% else %}
+                <div class="bg-secondary rounded d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                  <span class="fw-bold text-light">{{ experience.company.name|slice:":1" }}</span>
+                </div>
+                {% endif %}
+                <div class="ms-3">
+                  <h3 class="h5 fw-semibold text-dark" style="font-family: 'Merriweather', serif;">{{ experience.title }}</h3>
+                  <a href="{{ experience.company.website }}" target="_blank" class="text-danger text-decoration-none">{{ experience.company.name }}</a>
+                </div>
+              </div>
+
+              <!-- Duration and Location -->
+              <div class="d-flex justify-content-center align-items-center text-muted mb-3" style="font-size: 0.875rem;">
+                <span class="me-2">
+                  {{ experience.start_date|date:"M Y" }} - 
+                  {% if experience.is_current %}Present{% else %}{{ experience.end_date|date:"M Y" }}{% endif %}
+                </span>
+                <span>&bull;</span>
+                <span class="mx-2">{{ experience.duration }}</span>
+                {% if experience.company.location %}
+                <span>&bull;</span>
+                <span class="ms-2">{{ experience.company.location }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Employment Type -->
+              <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill mb-3">
+                {{ experience.get_employment_type_display }}
+              </span>
+
+              <!-- Description -->
+              <div class="text-dark mb-3">
+                {{ experience.description|linebreaks }}
+              </div>
+
+              {% if experience.key_achievements %}
+              <!-- Key Achievements -->
+              <div class="mb-3">
+                <h4 class="h6 fw-semibold text-dark mb-2" style="font-family: 'Merriweather', serif;">Key Achievements:</h4>
+                <ul class="list-disc list-inside text-dark">
+                  {% for achievement in experience.key_achievements %}
+                  <li>{{ achievement }}</li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+
+              {% if experience.technologies_used.exists %}
+              <!-- Technologies Used -->
+              <div class="d-flex flex-wrap gap-2">
+                {% for tech in experience.technologies_used.all %}
+                <span class="badge bg-secondary bg-opacity-25 text-secondary rounded-pill" style="font-size: 0.75rem;">
+                  {{ tech.name }}
+                </span>
+                {% endfor %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
       </div>
+      {% endfor %}
+    </div>
   </div>
 </section>
 
 
-
 <section>
-  <div class="sectionSpace pt-0">
+  <div class="py-0">
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center">
         
-<div class="max-w-2xl mx-auto">
-    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Technical Expertise</h2>
-
-    <!--<div class="space-y-4">
-        {% for skill in me.userprofile.skills.all|dictsort:"order" %}
-        <div class="mb-6 p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-center mb-2">
-                <h3 class="text-lg font-semibold text-gray-800">{{ skill.name }}</h3>
-                <span class="px-3 py-1 {{ skill.level_color_classes }} rounded-full text-sm font-medium">
-                    {{ skill.level }}
-                </span>
-            </div>
-            <p class="text-gray-600 text-sm">{{ skill.description }}</p>
-        </div>
-        {% endfor %}
-    </div>-->
+        <div class="col-md-8">
+          <h2 class="h4 fw-bold text-dark mb-5 text-center">Technical Expertise</h2>
 
           <div class="progressCol">
             <div class="progressCard">
-              
-            {% for sk in me.userprofile.skills.all %} 
-            {% if not sk.is_key_skill %}
-              <div class="progressCol">
-                <span class="progressLbl">{{sk.name}}</span>
-                <div class="row g-2 align-items-center">
-                  <div class="col">
-                    <div class="progress progressStyle">
-                      <div class="progress-bar" role="progressbar" style="width: {{sk.score}}%" aria-valuenow="{{sk.score}}" aria-valuemin="0" aria-valuemax="100"></div>
+              {% for sk in me.userprofile.skills.all %} 
+              {% if not sk.is_key_skill %}
+                <div class="mb-3">
+                  <label class="form-label">{{ sk.name }}</label>
+                  
+
+                  <div class="row g-2 align-items-center">
+                    <div class="col">
+                      <div class="progress progressStyle">
+                        <div class="progress-bar" role="progressbar" style="width: {{sk.score}}%" aria-valuenow="{{sk.score}}" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <span class="pLbl">{{sk.score}}%</span>
                     </div>
                   </div>
-                  <div class="col-auto">
-                    <span class="pLbl">{{sk.score}}%</span>
-                  </div>
+
+
                 </div>
-              </div>
               {% endif %}
               {% endfor %}
-                </div>
-              </div>
             </div>
           </div>
-
-</div>
-
-
+        </div>
       </div>
     </div>
   </div>
@@ -410,107 +226,68 @@ outline-offset: 2px;
 
 <!-- templates/tools_section.html -->
 
-<section class="bg-gray-50 py-12">
-  <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-xl font-bold text-gray-800 mb-6">Tech Stack & Tools</h2>
+<section class="bg-light py-5">
+  <div class="container" style="max-width: 1140px;">
+    <h2 class="h5 fw-bold text-dark mb-4">Tech Stack & Tools</h2>
 
-      <!-- Carousel Container -->
       <div class="tools-carousel relative overflow-hidden">
-          <!-- Track that will scroll -->
           <div class="tools-track flex animate-scroll">
               {% for tool in tools %}
               <!-- Tool Card -->
               <div class="tool-card flex-none w-48 mx-4 bg-white rounded-lg shadow-sm p-4 flex flex-col items-center">
-                  {% if tool.icon %}
-                      <img src="{{ tool.icon.url }}" alt="{{ tool.name }}" class="h-12 w-12 object-contain mb-3">
-                  {% else %}
-                      <div class="h-12 w-12 bg-gray-100 rounded-full mb-3 flex items-center justify-center">
-                          <span class="text-2xl">{{ tool.name|make_list|first }}</span>
-                      </div>
-                  {% endif %}
-                  <h3 class="text-sm font-semibold text-gray-800">{{ tool.name }}</h3>
-                  <span class="text-xs text-gray-500">{{ tool.get_category_display }}</span>
-              </div>
+                {% if tool.icon %}
+                <img src="{{ tool.icon.url }}" alt="{{ tool.name }}" class="card-img-top mb-3" style="height: 48px; width: 48px; object-fit: contain;">
+              {% else %}
+                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center mb-3" style="width: 48px; height: 48px;">
+                  <span class="text-white">{{ tool.name|slice:":1" }}</span>
+                </div>
+              {% endif %}
+                  
+                  <div class="card-body p-0">
+                    <h5 class="card-title mb-1" style="font-size: 0.875rem;">{{ tool.name }}</h5>
+                    <p class="card-text text-muted" style="font-size: 0.75rem;">{{ tool.get_category_display }}</p>
+                  </div>
+                </div>
               {% endfor %}
           </div>
       </div>
   </div>
 </section>
 
-<!-- Tailwind and CSS Styling for Scrolling Animation -->
-<style>
-  /* Scroll Animation */
-  @keyframes scroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-100%); }
-  }
-
-  /* Carousel track styling */
-  .tools-carousel {
-      max-width: 100%;
-      overflow: hidden;
-      white-space: nowrap;
-  }
-
-  /* Infinite scroll on the tools-track */
-  .tools-track {
-      display: flex;
-      animation: scroll 7s linear infinite;
-  }
-
-  /* Duplicate items to ensure smooth scrolling */
-  .tools-track > div {
-      flex: none;
-  }
-</style>
-
-
-
 
 
 <section>
   <div class="sectionSpaceSm lightBg">
     <div class="container">
-      <div class="row pb-3">
-        <div class="col">
-          <h4 class="smText regular">Certificates</h4>
-        </div>
-        <div class="col-auto">
-          <a href="{% url 'main:portfolios' %}" class="simpleLink">View all</a>
-        </div>
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <!--<h4 class="h6 fw-normal">Certificates</h4>-->
+        <h2 class="h4 fw-bold text-dark mb-5">Certificates</h2>
+
+        <a href="{% url 'main:portfolios' %}" class="text-decoration-none text-primary">View all</a>
       </div>
-      <div class="sliderOuter">
-        <div class="swiper certificatesSlider">
-          <div class="swiper-wrapper">
-            {% for c in certificates %}
-            {% if c.is_active %}
-              <div class="swiper-slide">
-                <div class="cardStyle1">
-                  <h4 class="mdTitle cs1Title">
-                    <a href="javascript:void(0)">{{c.name}}</a>
-                  </h4>
-                  <ul class="cardOptionCol">
-                    <br>
-                    <div class="bannerUserImg">
-                      <img src="{{c.image.url}}" alt="...">
-                    </div>
-                    <br>
-                    <br>
-
-                    <li>{{c.title}}</li>
-                    <br>
-                    <li>{{c.date}}</li>
-
-                  </ul>
+      <div class="swiper certificatesSlider">
+        <div class="swiper-wrapper">
+          {% for c in certificates %}
+          {% if c.is_active %}
+          <div class="swiper-slide">
+            <div class="card shadow-sm p-3">
+              <h4 class="h6">
+                <a href="javascript:void(0)" class="text-decoration-none">{{ c.name }}</a>
+              </h4>
+              <ul class="list-unstyled">
+                <div class="text-center mb-3">
+                  <img src="{{ c.image.url }}" alt="{{ c.name }}" class="img-fluid">
                 </div>
-              </div>
-            {% endif %}
-            {% endfor %}
+                <li>{{ c.title }}</li>
+                <li>{{ c.date }}</li>
+              </ul>
+            </div>
           </div>
-        </div>            
-        <div class="cert-swiper-button-next swiper-button-next swiperBtnStyle"></div>
-        <div class="cert-swiper-button-prev swiper-button-prev swiperBtnStyle"></div>
-        <div class="swiper-pagination swiperPaginationStyle posInitial"></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+        <!-- Swiper controls can be maintained or replaced with Bootstrap Carousel controls -->
+        <!-- If using Swiper JS, ensure it's properly integrated with Bootstrap -->
       </div>
     </div>
   </div>
@@ -522,10 +299,12 @@ outline-offset: 2px;
       <div class="portfolioCol">
         <div class="row pb-3">
           <div class="col">
-            <h4 class="smText regular">Featured Work</h4>
+            <!--<h4 class="smText regular">Featured Work</h4>-->
+            <h2 class="h4 fw-bold text-dark mb-5">Featured Work</h2>
+
           </div>
           <div class="col-auto">
-            <a href="{% url 'main:portfolios' %}" class="simpleLink">View all</a>
+            <a href="{% url 'main:portfolios' %}" class="text-decoration-none text-primary">View all</a>
           </div>
         </div>
 
@@ -540,12 +319,15 @@ outline-offset: 2px;
               </div>
             </div>
             <div class="col-md">
-              <div class="portfolioContentCol">
-                <h4 class="lgTitle"><a href="{% url 'main:portfolio' slug=p.slug %}">{{p.name}}</a></h4>
-                <ul class="portfolioOption">
-                  <li><span class="dateLbl">{{p.date}}</span></li>
+            
+              <div class="card-body">
+                <h5 class="card-title">
+                  <a href="{% url 'main:portfolio' slug=p.slug %}" class="text-decoration-none">{{ p.name }}</a>
+                </h5>
+                <ul class="list-inline text-muted">
+                  <li class="list-inline-item">{{ p.date }}</li>
                 </ul>
-                <p>{{p.description}}</p>
+                <p class="card-text">{{ p.description }}</p>
               </div>
             </div>
           </div>
@@ -556,7 +338,9 @@ outline-offset: 2px;
 
 
         <div class="testimonialCol">
-        <h4 class="smText regular d-block">Testimonials</h4>
+        <!--<h4 class="smText regular d-block">Testimonials</h4>-->
+        <h2 class="h4 fw-bold text-dark mb-5">Testimonials</h2>
+
         <div class="testimonialSlider">
           <div class="swiper testimonialSwiper">
             <div class="swiper-wrapper">
@@ -593,28 +377,31 @@ outline-offset: 2px;
   </div>
 </section>
 
+
 <section>
-  <div class="sectionSpaceSm lightBg">
+  <div class="py-3 bg-light">
     <div class="container">
-      <div class="row pb-3">
-        <div class="col">
-          <h4 class="smText regular">Recent posts</h4>
-        </div>
-        <div class="col-auto">
-          <a href="{% url 'main:blogs' %}" class="simpleLink">View all</a>
-        </div>
+      <div class="d-flex justify-content-between align-items-center pb-3">
+        <!--<h4 class="h6 fw-normal">Recent Posts</h4>-->
+        <h2 class="h4 fw-bold text-dark mb-5 text-center">Recent Posts</h2>
+
+        <a href="{% url 'main:blogs' %}" class="text-decoration-none text-primary">View all</a>
       </div>
       <div class="row g-3">
         {% for b in blogs %}
         {% if b.is_active %}
         <div class="col-lg-6">
-          <div class="cardStyle1">
-            <h4 class="mdTitle cs1Title"><a href="{% url 'main:blog' slug=b.slug %}">{{b.name}}</a></h4>
-            <ul class="cardOptionCol">
-              <li>{{b.timestamp}}</li>
-              <li>{{b.author}}</li>
-            </ul>
-            <p>{{b.description}}</p>
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'main:blog' slug=b.slug %}" class="text-decoration-none">{{ b.name }}</a>
+              </h5>
+              <ul class="list-inline text-muted mb-3">
+                <li class="list-inline-item">{{ b.timestamp }}</li>
+                <li class="list-inline-item">{{ b.author }}</li>
+              </ul>
+              <p class="card-text">{{ b.description }}</p>
+            </div>
           </div>
         </div>
         {% endif %}
@@ -623,6 +410,7 @@ outline-offset: 2px;
     </div>
   </div>
 </section>
+
 {% endblock %}
 <!-- ================================
   End Content

@@ -57,12 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
     let url = `${protocol}${window.location.host}/ws/data/`;
     const assistantSocket = new WebSocket(url);
 
-
     function scrollToBottom() {
       setTimeout(() => {
-      window.scrollTo(0, document.body.scrollHeight);
-  }, 0);
-  }
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 0);
+    }
 
     assistantSocket.onopen = function() {
         console.log("WebSocket connection established");
@@ -83,34 +82,39 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             var converter = new showdown.Converter();
-
             let messageContent = converter.makeHtml(data.message);
 
             let messageDiv = document.createElement('li');
-              messageDiv.classList.add('d-flex', 'justify-content-start', 'mb-4', 'fade-in-up');
-              messageDiv.style.width = '95%';
+            messageDiv.classList.add('d-flex', 'justify-content-start', 'mb-4', 'fade-in-up');
+            messageDiv.style.width = '95%';
 
-              let span = document.createElement('span');
-              messageDiv.appendChild(span);
+            let span = document.createElement('span');
+            messageDiv.appendChild(span);
+            messages.appendChild(messageDiv);
 
-              messages.appendChild(messageDiv);
+            // Configure typewriter with no cursor
+            let typewriter = new Typewriter(span, {
+                loop: false,
+                delay: 0.5,
+                cursor: '',  // Remove the cursor character
+                cursorClassName: 'hidden-cursor'  // Add a class to hide cursor
+            });
 
-              let typewriter = new Typewriter(span, {
-                  loop: false,
-                  delay: 0.5
-              });
-
-              typewriter.typeString(messageContent).start().callFunction(() => {
-                  scrollToBottom();
-              });
-          }
+            typewriter
+                .typeString(messageContent)
+                .start()
+                .callFunction(() => {
+                    scrollToBottom();
+                    // Ensure any remaining cursor is removed
+                    const cursors = document.querySelectorAll('.Typewriter__cursor');
+                    cursors.forEach(cursor => cursor.remove());
+                });
+        }
     };
-
     
     assistantSocket.onclose = function(e) {
       alert("Connection lost. Please refresh this page to reconnect.");
     };
-
 
     let form = document.getElementById('chat_message_form');
     form.addEventListener('submit', (e) => {
@@ -149,9 +153,8 @@ document.addEventListener("DOMContentLoaded", function () {
           </li>`;
         messages.insertAdjacentHTML('beforeend', loadingHTML);
         scrollToBottom();
-    })
+    });
   }
-
 });
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -181,3 +184,27 @@ function startTypingEffect() {
   });
 }
 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const expandButton = document.querySelector('.expand-button');
+  const expandableContent = document.querySelector('.expandable-content');
+  const expandText = expandButton.querySelector('span');
+
+  expandButton.addEventListener('click', function() {
+    const isExpanded = expandableContent.classList.contains('expanded');
+
+    if (isExpanded) {
+      // Collapse the content
+      expandableContent.classList.remove('expanded');
+      expandButton.setAttribute('aria-expanded', 'false');
+      expandText.textContent = 'Show More'; 
+    } else {
+      // Expand the content
+      expandableContent.classList.add('expanded');
+      expandButton.setAttribute('aria-expanded', 'true');
+      expandText.textContent = 'Show Less'; // Change text to "Show Less"
+
+    }
+  });
+});
