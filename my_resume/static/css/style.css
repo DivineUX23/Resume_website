@@ -796,7 +796,7 @@ main {
 #chat-page {
   height: 100vh;
   background-color: #ffffff;
-  display: flex;  /* Add this */
+  display: flex;
   flex-direction: column;  /* Add this */
   overflow: hidden;  /* Move overflow hidden here */
 }
