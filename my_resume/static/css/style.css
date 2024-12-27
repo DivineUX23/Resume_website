@@ -798,7 +798,7 @@ main {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  overflow: hidden;  /* Move overflow hidden here */
+  overflow: hidden;
 }
 
 .chat-container {
