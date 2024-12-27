@@ -789,7 +789,7 @@ main {
   /*overflow-y: auto;
   overflow: hidden;*/
   padding-top: 35px;
-  height: 100%;  /* Add this to ensure proper height calculation */
+  height: 100%;
 
 }
 
