@@ -109,7 +109,7 @@ End CSS
 
           <!-- Content centered -->
           <div class="w-100 mt-4">
-            <div class="bg-white rounded shadow p-4 hover-shadow transition-shadow" style="font-family: 'Open Sans', sans-serif;">
+            <div class="bg-white rounded shadow p-4 hover-shadow transition-shadow">
               <!-- Company Logo and Title -->
               <div class="d-flex justify-content-center align-items-center mb-3">
                 {% if experience.company.logo %}
@@ -120,7 +120,7 @@ End CSS
                 </div>
                 {% endif %}
                 <div class="ms-3">
-                  <h3 class="h5 fw-semibold text-dark" style="font-family: 'Merriweather', serif;">{{ experience.title }}</h3>
+                  <h3 class="h5 fw-semibold text-dark">{{ experience.title }}</h3>
                   <a href="{{ experience.company.website }}" target="_blank" class="text-danger text-decoration-none">{{ experience.company.name }}</a>
                 </div>
               </div>
@@ -152,7 +152,7 @@ End CSS
               {% if experience.key_achievements %}
               <!-- Key Achievements -->
               <div class="mb-3">
-                <h4 class="h6 fw-semibold text-dark mb-2" style="font-family: 'Merriweather', serif;">Key Achievements:</h4>
+                <h4 class="h6 fw-semibold text-dark mb-2">Key Achievements:</h4>
                 <ul class="list-disc list-inside text-dark">
                   {% for achievement in experience.key_achievements %}
                   <li>{{ achievement }}</li>
