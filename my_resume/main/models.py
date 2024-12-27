@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from ckeditor.fields import RichTextField
 import uuid
+from datetime import datetime, date
 
 # Create your models here.
 
@@ -267,7 +268,7 @@ class Portfolio(models.Model):
         verbose_name = 'Portfolio'
         verbose_name_plural = 'Portfolio Profiles'
         ordering = ['name']
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(blank=True, null=True) #models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     body = RichTextField(blank=True, null=True)
@@ -325,7 +326,7 @@ class Certificate(models.Model):
         verbose_name = 'Certificate'
         verbose_name_plural = 'Certificates'
 
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateField(blank=True, null=True) #models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=50, blank=True, null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(blank=True, null=True)

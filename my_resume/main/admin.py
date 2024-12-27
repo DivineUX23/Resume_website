@@ -16,24 +16,20 @@ from . models import (Skill,
     Blog,
     Certificate,
     Conversation,
-    Resume_info)
+    Resume_info,
+    AboutMe, Company, WorkExperience, Tool)
 """
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'score')
 """
 
-# admin.py
-from django.contrib import admin
-from .models import AboutMe
 
 @admin.register(AboutMe)
 class AboutMeAdmin(admin.ModelAdmin):
     list_display = ('headline', 'email')
 
-# admin.py
-from django.contrib import admin
-from .models import Company, WorkExperience
+
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
@@ -50,9 +46,6 @@ class WorkExperienceAdmin(admin.ModelAdmin):
     ordering = ('-start_date', '-end_date')
 
 
-# admin.py
-from django.contrib import admin
-from .models import Tool
 
 @admin.register(Tool)
 class ToolAdmin(admin.ModelAdmin):
@@ -62,13 +55,6 @@ class ToolAdmin(admin.ModelAdmin):
     search_fields = ('name', 'description')
 
 
-# admin.py
-from django.contrib import admin
-from .models import Skill, UserProfile
-
-# admin.py
-from django.contrib import admin
-from .models import Skill, UserProfile
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):
@@ -98,7 +84,7 @@ class MediaAdmin(admin.ModelAdmin):
 
 @admin.register(Portfolio)
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description', 'is_active')
+    list_display = ('id', 'name', 'description', 'date', 'is_active')
     readonly_fields = ('slug',)
 
 @admin.register(Blog)
@@ -108,7 +94,7 @@ class BlogAdmin(admin.ModelAdmin):
 
 @admin.register(Certificate)
 class CertificateAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'description')
+    list_display = ('id', 'name', 'description', 'date')
 
 
 
