@@ -48,7 +48,6 @@ var swiper = new Swiper(".certificatesSlider", {
   },
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
     
   if (document.getElementById('chat-page')) {
@@ -126,14 +125,20 @@ document.addEventListener("DOMContentLoaded", function () {
         let messages = document.getElementById('user_message');
 
         let messageHTML = `
-        <li class="d-flex justify-content-end mb-4 fade-in-up">
-            <div class="bg-white shadow p-3" style="max-width: 95%; border-radius: 50px 50px 50px 50px;">
+        <li class="d-flex justify-content-end mb-4 fade-in-up w-100">
+            <div class="bg-primary text-white shadow p-3 message-container" style="max-width: 75%; border-radius: 20px 4px 20px 20px;">
                 <span>${messageContent}</span>
             </div>
         </li>`;
 
         messages.insertAdjacentHTML('beforeend', messageHTML);
-        scrollToBottom();
+
+          // Immediate scroll after user message
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+
 
         // Send the raw message text to the WebSocket
         assistantSocket.send(JSON.stringify({

@@ -785,21 +785,29 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  overflow: hidden;
+  
+  /*overflow-y: auto;
+  overflow: hidden;*/
   padding-top: 35px;
+  height: 100%;  /* Add this to ensure proper height calculation */
+
 }
 
 #chat-page {
   height: 100vh;
   background-color: #ffffff;
+  display: flex;  /* Add this */
+  flex-direction: column;  /* Add this */
+  overflow: hidden;  /* Move overflow hidden here */
 }
 
 .chat-container {
+  /*flex: 1;*/
   height: calc(100vh - 140px);
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;  /* Add this */
 }
 
 #chat_container {
@@ -822,6 +830,9 @@ main {
   background: #002855;
   border-radius: 3px;
 }
+
+
+
 
 #chat_messages {
   list-style: none;
