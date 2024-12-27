@@ -807,7 +807,7 @@ main {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  overflow: hidden;  /* Add this */
+  overflow: hidden;
 }
 
 #chat_container {
@@ -912,7 +912,7 @@ main {
   }
 }
 
-/* Message bubbles styling can be added here */
+/* Message bubbles styling here */
 .message {
   margin-bottom: 1rem;
   max-width: 80%;
