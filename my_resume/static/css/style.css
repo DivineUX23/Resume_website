@@ -797,7 +797,7 @@ main {
   height: 100vh;
   background-color: #ffffff;
   display: flex;
-  flex-direction: column;  /* Add this */
+  flex-direction: column;
   overflow: hidden;  /* Move overflow hidden here */
 }
 
