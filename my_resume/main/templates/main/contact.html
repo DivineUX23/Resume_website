@@ -1,66 +1,138 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %} Contact Divine {% endblock %}
-{% block description %}{% endblock %}
-{% block keywords %}{% endblock %}
+{% block title %}Connect with Divine{% endblock %}
+{% block description %}Find Divine's professional and social media profiles{% endblock %}
+{% block keywords %}divine, social media, contact, github, linkedin, twitter, telegram{% endblock %}
 
+{% block extend_header %}
+<style>
+    .social-links {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-<!-- ================================
-Start CSS
-================================= -->
-{% block extend_header %}{% endblock %}
+    .link-card {
+        background-color: #ffffff;
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin: 12px 0;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #333333;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-<!-- ================================
-End CSS
-================================= -->
-{% block extend_footer %}{% endblock %}
+    .link-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
 
- 
-<!-- ================================
-Start Content
-================================= -->
+    .link-card i {
+        font-size: 24px;
+        margin-right: 15px;
+        width: 24px;
+        text-align: center;
+    }
+
+    .link-card span {
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .profile-section {
+        text-align: center;
+        padding: 40px 0 20px;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        object-fit: cover;
+    }
+
+    .profile-name {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .profile-bio {
+        color: #666;
+        margin-bottom: 30px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: 768px) {
+        .social-links {
+            padding: 15px;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+        }
+    }
+</style>
+<!-- Include Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
 
 {% block content %}
-
-<!-- ================================
-Start Content
-================================= -->
-<section>
-  <div class="innerPageBannerCol">
-    <div class="container">
-      <div class="row g-4 g-md-3  align-items-center">
-        <div class="col-md-6">
-          <div class="bannerContent">
-            <h1 class="pb-md-3">Contact Divine below</h1>
-          </div>
+<div class="container">
+    <div class="social-links">
+        <div class="profile-section">
+            <!-- Replace with your profile image -->
+            <img src="{% static '/_MGL9542 (4)-Photoroom.png-Photoroom (1).png' %}" alt="Divine's Profile" class="profile-image">
+            <h1 class="profile-name">Divine</h1>
+            <p class="profile-bio">Connect with me on various platforms</p>
         </div>
-      </div>
+
+        <a href="https://github.com/DivineUX23" class="link-card" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>Follow me on GitHub</span>
+        </a>
+
+        
+        <a href="mailto:divineigbinoba23@gmail.com" class="link-card">
+          <i class="fas fa-envelope"></i>
+          <span>Send me an Email</span>
+        </a>
+
+        <a href="https://wa.me/+2348115174429" class="link-card" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>Message me on WhatsApp</span>
+        </a>
+
+        <a href="https://www.linkedin.com/in/divine-igbinoba-330808184/" class="link-card" target="_blank">
+            <i class="fab fa-linkedin"></i>
+            <span>Connect on LinkedIn</span>
+        </a>
+
+        <a href="https://x.com/DivineIgbinoba" class="link-card" target="_blank">
+            <i class="fab fa-x-twitter"></i>
+            <span>Follow me on X (Twitter)</span>
+        </a>
+
+        <a href="https://t.me/+2348115174429" class="link-card" target="_blank">
+            <i class="fab fa-telegram"></i>
+            <span>Chat with me on Telegram</span>
+        </a>
+
+        <a href="https://www.upwork.com/freelancers/YOUR_USERNAME" class="link-card" target="_blank">
+            <i class="fas fa-briefcase"></i>
+            <span>Hire me on Upwork</span>
+        </a>
+
     </div>
-  </div>
-</section>
-
-<section>
-  <div class="lightBg">
-    <div class="container">
-        <form id="contactForm" method="POST" action="/contact/">
-          {% csrf_token %}
-            <label for="name">Name</label>
-            {{ form.name }}
-
-            <label for="email">Email</label>
-            {{ form.email }}
-            
-            <label for="message">Message</label>
-            {{ form.message }}
-
-            <input class='btn btnPrimary' type="submit" value="Submit">
-        </form>
-    </div>
-  </div>
-</section>
-<!-- ================================
-End Content
-================================= -->
-
+</div>
 {% endblock %}
+
+{% block extend_footer %}{% endblock %}
